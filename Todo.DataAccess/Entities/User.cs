@@ -1,11 +1,9 @@
-using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace Todo.DataAccess.Entities;
 
-public class User
+public class User : IdentityUser<long>
 {
-    [Key]
-    public long Id { get; set; }
     public string Name { get; set; }
     public string Lastname { get; set; }
     public GenderEnum Gender { get; set; }

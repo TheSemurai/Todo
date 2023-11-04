@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Todo.DataAccess;
 
-namespace TodoAPI.Infrastructure.StartupConfiguration;
+namespace Todo.DataAccess;
 
 public static class DbContextConfiguration
 {
@@ -11,9 +11,21 @@ public static class DbContextConfiguration
     {
         services.AddDbContextPool<ApplicationContext>(
             (optionsBuilder) => optionsBuilder
-                .UseSqlServer(configuration.GetConnectionString("Todoshe4kaDB"))
+                .UseSqlServer(@"Server=localhost;Database=TodoApp;Trusted_Connection=True;TrustServerCertificate=True")
         );
 
         return services;
+    }
+}
+
+public class DesignTimeBMDbContext : IDesignTimeDbContextFactory<ApplicationContext>
+{
+    public ApplicationContext CreateDbContext(string[] args)
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+        // pass your design time connection string here
+        optionsBuilder.UseSqlServer(@"Server=localhost;Database=TodoApp;Trusted_Connection=True;TrustServerCertificate=True");
+        return new ApplicationContext(optionsBuilder.Options);
+        // 
     }
 }

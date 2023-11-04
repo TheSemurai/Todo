@@ -8,6 +8,21 @@ public class PersonalTaskConfiguration : IEntityTypeConfiguration<PersonalTask>
 {
     public void Configure(EntityTypeBuilder<PersonalTask> builder)
     {
-        throw new NotImplementedException();
+        builder
+            .HasKey(k => k.Id);
+
+        builder
+            .Property(p => p.Title)
+            .HasMaxLength(25)
+            .IsRequired();
+
+        builder
+            .Property(p => p.Content)
+            .HasMaxLength(900)
+            .IsRequired();
+
+        builder
+            .Property(e => e.IsComplete)
+            .IsRequired();
     }
 }
