@@ -14,7 +14,7 @@ public class ApplicationContext : DbContext
     {
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected void OnConfiguring(DbContextOptionsBuilder<ApplicationContext> optionsBuilder)
     {
         //TODO
     }
