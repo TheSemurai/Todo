@@ -1,6 +1,6 @@
-namespace Todo.BusinessLogic.Services;
+namespace Todo.BusinessLogic.Infrastructure.ExtensionMethods;
 
-public static class UpdateService
+public static class CompareExtension
 {
     public static async Task<TEntity> ReplaceOlderByNewTEntityWithoutNullPropertiesAsync<TEntity>(this TEntity older, TEntity newTEntity)
     {

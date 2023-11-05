@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Todo.BusinessLogic.Entities;
+using Todo.BusinessLogic.Infrastructure.ExtensionMethods;
 using Todo.BusinessLogic.Infrastructure.Responses;
 using Todo.BusinessLogic.Interfaces;
 using Todo.DataAccess;
