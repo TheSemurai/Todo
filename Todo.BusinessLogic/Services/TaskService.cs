@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using Todo.BusinessLogic.Entities;
 using Todo.BusinessLogic.Infrastructure.Responses;
 using Todo.BusinessLogic.Interfaces;
 using Todo.DataAccess;
@@ -66,6 +68,133 @@ public class TaskService : ITaskService
             };
         }
     }
-    
-    
+
+    private IEnumerable<PersonalTask> GetAllTasksAsEnumerable(Expression<Func<PersonalTask?, bool>> predicate) 
+        => _context.Tasks.Where(predicate);
+
+    public PersonalTask? GetTaskById(long taskId) 
+        => _context.Tasks.FirstOrDefault(x => x.Id == taskId);
+
+    public async Task<IEnumerable<PersonalTask>> GetAllTasksByUserAsEnumerable(long userId) 
+        => GetAllTasksAsEnumerable(task => task.Author.Id == userId);
+
+    public async Task<ICollection<TaskItem>> GetAllTaskToList(long userId) 
+        => (await GetAllTasksByUserAsEnumerable(userId))
+            .Select(x => new TaskItem()
+            {
+                Id = x.Id,
+                Title = x.Title, 
+                Content = x.Content, 
+                IsComplete = x.IsComplete
+            }).ToList();
+
+    public async Task<RequestResult> RemoveTaskById(long userId, long taskId)
+    {
+        var user = await _userCommunicationService.GetUserById(userId);
+        
+        if (user is null)
+            return new RequestResult()
+            {
+                Success = false,
+                Messages = new List<string>()
+                {
+                    $"The user can not be null in method {nameof(RemoveTaskById)}",
+                }
+            };
+
+        var task = user.Tasks.FirstOrDefault(x => x.Id == taskId);
+        
+        if (task is null)
+            return new RequestResult()
+            {
+                Success = false,
+                Messages = new List<string>()
+                {
+                    $"The task has not been found, when tried remove in method {nameof(RemoveTaskById)}",
+                }
+            };
+
+        try
+        {
+            _context.Tasks.Remove(task);
+            await _context.SaveChangesAsync();
+            
+            return new RequestResult()
+            {
+                Success = true,
+                Messages = new List<string>()
+                {
+                    $"Task has been removed.",
+                    $"Task by id: {taskId} was removed from user by id: {userId}",
+                }
+            };
+        }
+        catch (Exception exception)
+        {
+            return new RequestResult()
+            {
+                Success = false,
+                Messages = new List<string>()
+                {
+                    "Server error.",
+                    exception.Message,
+                }
+            };
+        }
+    }
+
+    public async Task<RequestResult> UpdateTask(long userId, long taskId, TaskItemToUpdate item)
+    {
+        var olderTask = GetTaskById(taskId);
+        
+        if(olderTask is null)
+            return new RequestResult()
+            {
+                Success = false,
+                Messages = new List<string>()
+                {
+                    $"The user can not be null in method {nameof(RemoveTaskById)}",
+                }
+            };
+        
+        var updateTask = new PersonalTask()
+        {
+            Id = taskId,
+            Title = item.Title,
+            Content = item.Content,
+            IsComplete = item.IsComplete ?? false,
+            Author = olderTask.Author,
+        };
+        
+        await olderTask.ReplaceOlderByNewTEntityWithoutNullPropertiesAsync(updateTask);
+
+        try
+        {
+            await _context.SaveChangesAsync();
+            _context.Tasks.Update(olderTask);
+            
+            return new RequestResult()
+            {
+                Success = true,
+                Messages = new List<string>()
+                {
+                    $"Task has been changed.",
+                    $"Task by id: {taskId} was changed.",
+                    $"Task by title: {item.Title} was changed.",
+                }
+            };
+        }
+        catch (Exception exception)
+        {
+            return new RequestResult()
+            {
+                Success = false,
+                Messages = new List<string>()
+                {
+                    $"Server error. Task can not be changed",
+                    exception.Message,
+                }
+            };
+        }
+    }
 }
