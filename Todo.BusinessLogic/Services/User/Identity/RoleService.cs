@@ -19,6 +19,13 @@ public class RoleService : IRoleService
         _roleManager = roleManager;
         _userManager = userManager;
     }
+    
+    public async Task<bool> IsRoleExist(string name)
+    {
+        var role = _roleManager.Roles.FirstOrDefault(role => role.Name == name);
+
+        return role is not null;
+    }
 
     public async Task<RequestResult> CreateRole(string name)
     {

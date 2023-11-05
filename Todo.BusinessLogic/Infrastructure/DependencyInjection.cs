@@ -13,7 +13,7 @@ public static class DependencyInjection
         services.AddTransient<ITaskService, TaskService>();
         services.AddTransient<IUserCommunicationService, UserCommunicationService>();
         services.AddTransient<IRoleService, RoleService>();
-        //services.AddScoped<IIdentityService, Identit>();
+        services.AddTransient<IIdentityService, IdentityService>();
         
         return services;
     }
