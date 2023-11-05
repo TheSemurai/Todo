@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Todo.DataAccess.Configuration;
 using Todo.DataAccess.Entities;
 
-namespace Todo.DataAccess;
+namespace Todo.BusinessLogic.Infrastructure.StartupConfiguration;
 
 public static class IdentityConfiguration
 {

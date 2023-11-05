@@ -1,8 +1,5 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Todo.DataAccess;
-using Todo.DataAccess.Configuration;
-using Todo.DataAccess.Entities;
+using Todo.BusinessLogic.Infrastructure;
+using Todo.BusinessLogic.Infrastructure.StartupConfiguration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,12 +8,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureDbContext(builder.Configuration);
-//builder.Services.AddIdentityConfiguration();
+builder.Services.AddIdentityConfiguration();
 
-// builder.Services.AddDbContext<ApplicationContext>(options =>
-// {
-//     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-// });
+builder.Services.ConfigureBusinessLogicServices();
+
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

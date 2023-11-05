@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoAPI", "TodoAPI\TodoAPI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.DataAccess", "Todo.DataAccess\Todo.DataAccess.csproj", "{A927045D-AD2C-452B-BDED-BEA8C00714B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.BusinessLogic", "Todo.BusinessLogic\Todo.BusinessLogic.csproj", "{E8D5E1E5-71AC-4AF1-B8CF-57371453DAAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{A927045D-AD2C-452B-BDED-BEA8C00714B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A927045D-AD2C-452B-BDED-BEA8C00714B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A927045D-AD2C-452B-BDED-BEA8C00714B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8D5E1E5-71AC-4AF1-B8CF-57371453DAAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8D5E1E5-71AC-4AF1-B8CF-57371453DAAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8D5E1E5-71AC-4AF1-B8CF-57371453DAAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8D5E1E5-71AC-4AF1-B8CF-57371453DAAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

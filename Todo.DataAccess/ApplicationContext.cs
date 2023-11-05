@@ -6,7 +6,10 @@ using Todo.DataAccess.Entities;
 
 namespace Todo.DataAccess;
 
-public class ApplicationContext : DbContext
+public class ApplicationContext : IdentityDbContext<
+    User, 
+    Role, 
+    long>
 {
     public DbSet<PersonalTask> Tasks { get; set; }
 
