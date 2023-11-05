@@ -10,13 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureDbContext(builder.Configuration);
 //builder.Services.AddIdentityConfiguration();
 
-builder.Services.AddDbContext<ApplicationContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+// builder.Services.AddDbContext<ApplicationContext>(options =>
+// {
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+// });
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

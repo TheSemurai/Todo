@@ -24,5 +24,10 @@ public class PersonalTaskConfiguration : IEntityTypeConfiguration<PersonalTask>
         builder
             .Property(e => e.IsComplete)
             .IsRequired();
+
+        builder 
+            .HasOne(one => one.Author)
+            .WithMany(many => many.Tasks)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

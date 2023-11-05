@@ -11,21 +11,21 @@ public static class DbContextConfiguration
     {
         services.AddDbContextPool<ApplicationContext>(
             (optionsBuilder) => optionsBuilder
-                .UseSqlServer(@"Server=localhost;Database=TodoApp;Trusted_Connection=True;TrustServerCertificate=True")
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
         );
 
         return services;
     }
 }
 
-public class DesignTimeBMDbContext : IDesignTimeDbContextFactory<ApplicationContext>
-{
-    public ApplicationContext CreateDbContext(string[] args)
-    {
-        var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-        // pass your design time connection string here
-        optionsBuilder.UseSqlServer(@"Server=localhost;Database=TodoApp;Trusted_Connection=True;TrustServerCertificate=True");
-        return new ApplicationContext(optionsBuilder.Options);
-        // 
-    }
-}
+// public class DesignTimeBMDbContext : IDesignTimeDbContextFactory<ApplicationContext>
+// {
+//     public ApplicationContext CreateDbContext(string[] args)
+//     {
+//         var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+//         // pass your design time connection string here
+//         optionsBuilder.UseSqlServer(@"Server=localhost;Database=TodoApp;Trusted_Connection=True;TrustServerCertificate=True");
+//         return new ApplicationContext(optionsBuilder.Options);
+//         // 
+//     }
+// }
