@@ -90,9 +90,8 @@ public class JwtService : IJwtTokenService
      {
          var claims = new List<Claim>
          {
-             new Claim(type: "Id", value: user.Id.ToString()),
+             new Claim(type: ClaimTypes.NameIdentifier, value: user.Id.ToString()),
              new Claim(type: JwtRegisteredClaimNames.Sub, value: user.Email),
-             new Claim(type: JwtRegisteredClaimNames.Email, value: user.Email),
              new Claim(type: JwtRegisteredClaimNames.Jti, value: Guid.NewGuid().ToString()),
              new Claim(type: JwtRegisteredClaimNames.Iat, value: DateTime.Now.ToUniversalTime().ToString())
          };
@@ -234,7 +233,7 @@ public class JwtService : IJwtTokenService
                          "Expiry token"
                      }
                  };
- 
+        
              storedToken.IsUsed = true;
              _context.RefreshTokens.Update(storedToken);
              await _context.SaveChangesAsync();

@@ -20,7 +20,6 @@ public class ApplicationContext : IdentityDbContext<
 
     protected void OnConfiguring(DbContextOptionsBuilder<ApplicationContext> optionsBuilder)
     {
-        //TODO
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

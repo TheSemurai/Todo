@@ -23,7 +23,9 @@ public class TaskController : BaseController
     [Route("CreateTask")]
     public async Task<IActionResult> CreateTask(CreationTask creationTask)
     {
-        var response = await _taskService.CreateTask(10, creationTask); // todo: Hard code id
+        var userId = await User.GetCurrentUser();
+        
+        var response = await _taskService.CreateTask(userId, creationTask);
 
         if (response.Success)
             return Ok(response);
@@ -37,7 +39,9 @@ public class TaskController : BaseController
     {
         try
         {
-            var tasks = await _taskService.GetAllTaskToList(10);
+            var userId = await User.GetCurrentUser();
+            
+            var tasks = await _taskService.GetAllTaskToList(userId);
         
             if (!tasks.Any())
                 return NoContent();
@@ -63,7 +67,9 @@ public class TaskController : BaseController
     [Route("DeleteTask/{taskId}")]
     public async Task<IActionResult> DeleteTask(long taskId)
     {
-        var response = await _taskService.RemoveTaskById(10, taskId);
+        var userId = await User.GetCurrentUser();
+
+        var response = await _taskService.RemoveTaskById(userId, taskId);
 
         if (response.Success)
             return Ok(response);
@@ -82,7 +88,9 @@ public class TaskController : BaseController
     [Route("UpdateTask/{taskId}")]
     public async Task<IActionResult> UpdateTask(long taskId, TaskItemToUpdate item)
     {
-        var response = await _taskService.UpdateTask(10, taskId, item);
+        var userId = await User.GetCurrentUser();
+        
+        var response = await _taskService.UpdateTask(userId, taskId, item);
         
         if (response.Success)
             return Ok(response);
