@@ -1,13 +1,15 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Todo.BusinessLogic.Entities;
 using Todo.BusinessLogic.Infrastructure.Responses;
 using Todo.BusinessLogic.Interfaces;
 using TodoAPI.Infrastructure;
 using TodoAPI.Models;
-using TaskItem = Todo.BusinessLogic.Entities.TaskItem;
 
 namespace TodoAPI.Controllers;
 
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "DefaultUser")]
 public class TaskController : BaseController
 {
     private readonly ITaskService _taskService;
@@ -58,7 +60,7 @@ public class TaskController : BaseController
     }
 
     [HttpDelete]
-    [Route("DeleteTask")]
+    [Route("DeleteTask/{taskId}")]
     public async Task<IActionResult> DeleteTask(long taskId)
     {
         var response = await _taskService.RemoveTaskById(10, taskId);

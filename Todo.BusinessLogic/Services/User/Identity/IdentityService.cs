@@ -100,13 +100,13 @@ public class IdentityService : IIdentityService
                 }
             };
 
-        //var jwtToken = await _jwtService.GenerateJwtToken(existingUser);
+        var jwtToken = await _jwtService.GenerateJwtToken(existingUser);
         
-        //return jwtToken;
-        return new AuthResult()
-        {
-            Token = "lol-works",
-            RefreshToken = "works!"
-        };
+        return jwtToken;
+    }
+    
+    public async Task<AuthResult> RefreshToken(TokenRequest tokenRequest)
+    {
+        return await _jwtService.VerifyAndGenerateToken(tokenRequest);
     }
 }

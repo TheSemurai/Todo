@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Todo.BusinessLogic.Entities;
+using Todo.BusinessLogic.Infrastructure.Responses;
 using Todo.BusinessLogic.Interfaces;
 using TodoAPI.Infrastructure;
 
@@ -47,11 +48,21 @@ public class UserController : BaseController
         
         return BadRequest(StatusCode(400));
     }
-
-    [HttpGet]
-    [Route("GetUser")]
-    public async Task<IActionResult> GetUser(long id)
+    
+    [HttpPost]
+    [Route("RefreshToken")]
+    public async Task<IActionResult> RefreshToken([FromBody] TokenRequest tokenRequest)
     {
-        return Ok(id);
+        if (ModelState.IsValid)
+        {
+            var request = await _identityService.RefreshToken(tokenRequest);
+            
+            if (request.Error is null || !request.Error.Any()) 
+                return Ok(request);
+            
+            return BadRequest(request);
+        }
+
+        return BadRequest(StatusCode(400));
     }
 }
