@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="ClientApp\" />
       <Folder Include="Infrastructure\StartupConfiguration\" />
     </ItemGroup>
 
