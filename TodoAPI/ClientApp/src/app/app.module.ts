@@ -1,38 +1,53 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
-import { LogInComponent } from './auth/login/login.component';
-import { TokenInterceptor } from './auth/helpers/token.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TaskComponent } from './task/task.component';
+
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { StartPageComponent } from './start-page.component';
-// import { SingUpComponent } from './auth/singUp/singup.component';
+import { RouterModule, Routes } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './auth/auth.guard';
+import { HomepageComponent } from './home/homepage.component';
+import { LoginComponent } from './auth/login/login.component';
+import { ToastrModule } from 'ngx-toastr';
+
+//all components routes
+const routes: Routes = [
+  { path: '', component: HomepageComponent },
+  { path: 'task', component: TaskComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+];
+
+//function is use to get jwt token from local storage
+export function tokenGetter() {
+  return localStorage.getItem('jwt');
+}
 
 @NgModule({
-  declarations: [AppComponent, LogInComponent, StartPageComponent],
+  declarations: [
+    AppComponent,
+    TaskComponent,
+    HomepageComponent,
+    LoginComponent,
+  ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatInputModule,
+    RouterModule.forRoot(routes),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:44361'],
+        disallowedRoutes: [],
+      },
+    }),
+    ToastrModule.forRoot(),
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-  ],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

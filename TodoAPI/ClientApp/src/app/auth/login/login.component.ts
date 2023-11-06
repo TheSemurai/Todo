@@ -1,31 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthenticationService } from '../services/authentication.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
 })
-export class LogInComponent implements OnInit {
-  public loginForm!: FormGroup;
+export class LoginComponent {
+  invalidLogin?: boolean;
+
+  url = environment.apiUrl + '/api/user/';
 
   constructor(
-    private authenticationService: AuthenticationService,
-    private http: HttpClient
+    private router: Router,
+    private http: HttpClient,
+    private jwtHelper: JwtHelperService,
+    private toastr: ToastrService
   ) {}
 
-  ngOnInit() {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-    });
-  }
+  public login = (form: NgForm) => {
+    const credentials = JSON.stringify(form.value);
+    this.http
+      .post(this.url + 'LogIn', credentials, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .subscribe(
+        (response) => {
+          const token = (<any>response).token;
+          localStorage.setItem('jwt', token);
+          this.invalidLogin = false;
+          this.toastr.success('Logged In successfully');
+          this.router.navigate(['/product']);
+        },
+        (err) => {
+          this.invalidLogin = true;
+        }
+      );
+  };
 
-  public onSubmit() {
-    this.authenticationService.login(
-      this.loginForm.get('email')!.value,
-      this.loginForm!.get('password')!.value
-    );
+  isUserAuthenticated() {
+    const token = localStorage.getItem('jwt');
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -1,33 +1,35 @@
-<div
-  class="authentication-card-container"
-  fxLayout="column"
-  fxLayoutAlign="center"
->
-  <mat-card class="authentication-card">
-    <mat-card-header> <mat-card-title>Login</mat-card-title></mat-card-header>
-    <mat-card-content>
-      <form
-        [formGroup]="loginForm"
-        fxLayout="column"
-        fxLayoutAlign="center stretch"
-      >
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" />
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="onSubmit()">
-        Login
-      </button>
-      <button mat-button routerLink="/register" routerLinkActive="active">
-        Don't have an account? Register here.
-      </button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+<form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+  <div class="container-fluid">
+    <h2 class="form-signin-heading">Login</h2>
+    <div *ngIf="invalidLogin" class="alert alert-danger">
+      Invalid email or password.
+    </div>
+    <br />
+    <label for="email" class="sr-only">Email address</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      ngModel
+      class="form-control"
+      placeholder="User Name"
+      required
+      autofocus
+    />
+    <br />
+    <label for="password" class="sr-only">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      ngModel
+      class="form-control"
+      placeholder="Password"
+      required
+    />
+    <br />
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Login
+    </button>
+  </div>
+</form>

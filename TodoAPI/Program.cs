@@ -30,4 +30,10 @@ app
 app.UseHttpsRedirection();
 app.MapControllers();
 
+app.UseCors(builder =>
+    builder.WithOrigins("http://localhost:4200")  // or your Angular app URL
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+);
+
 app.Run();

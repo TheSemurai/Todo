@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LogInComponent } from './auth/login/login.component';
-import { AuthGuard } from './auth/helpers/auth.guard';
 import { StartPageComponent } from './start-page.component';
 //import {}
 
 const routes: Routes = [
-  {
-    path: '',
-    component: StartPageComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'login',
-    component: LogInComponent,
-  },
+  // {
+  //   path: '',
+  //   component: StartPageComponent,
+  //   canActivate: [AuthGuard],
+  // },
+  // {
+  //   path: 'login',
+  //   component: LogInComponent,
+  // },
   // {
   //   path: 'singup',
   //   component: SingUpComponent,
