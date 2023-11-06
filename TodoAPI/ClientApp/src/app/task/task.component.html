@@ -1,0 +1,2 @@
+<p *ngFor="let item of tasks | async">{{ item.title }}: {{ item.content }}</p>
+<button mat-raised-button color="primary" (click)="logOut()">Logout</button>

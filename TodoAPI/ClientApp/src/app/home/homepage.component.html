@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Product Application</a>
+  <a class="navbar-brand" href="#">Todoshka:</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -14,7 +14,7 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li *ngIf="isUserAuthenticated()" class="nav-item">
-        <a class="nav-link" routerLink="/product">Products</a>
+        <a class="nav-link" routerLink="/tasks">Task</a>
       </li>
       <li *ngIf="isUserAuthenticated()" class="nav-item">
         <a class="nav-link" (click)="logOut()">Logout</a>
@@ -26,5 +26,5 @@
   <login></login>
 </div>
 <div *ngIf="isUserAuthenticated()" style="color: green">
-  <h2>Welcome to the Product Application</h2>
+  <h2>Welcome to your Todoshka:</h2>
 </div>

@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Task } from './model/task';
 
 @Component({
-  selector: 'task',
+  selector: 'tasks',
   templateUrl: './task.component.html',
 })
 export class TaskComponent implements OnInit {
@@ -28,4 +28,8 @@ export class TaskComponent implements OnInit {
   getAllUserTasks() {
     this.tasks = this.taskClient.getAllTasks();
   }
+
+  public logOut = () => {
+    localStorage.removeItem('jwt');
+  };
 }

@@ -8,13 +8,13 @@ import { Task } from './model/task';
   providedIn: 'root',
 })
 export class TaskClient {
-  adress: string = '/task';
+  adress: string = '/api/Task';
 
   constructor(private http: HttpClient) {}
 
   getAllTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(
-      environment.apiUrl + this.adress + '/getAllTasks'
+      environment.apiUrl + this.adress + '/GetAllTasks'
     );
   }
 }

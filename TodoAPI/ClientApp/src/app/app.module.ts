@@ -16,7 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 //all components routes
 const routes: Routes = [
   { path: '', component: HomepageComponent },
-  { path: 'task', component: TaskComponent, canActivate: [AuthGuard] },
+  { path: 'tasks', component: TaskComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
 ];
 
