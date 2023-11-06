@@ -1,19 +1,33 @@
-<div class="auth-container">
-  <div class="login">
-    <div class="logIn-title"></div>
-    <div class="logIn-content">
-      <label for="email"><b>Email:</b></label>
-      <input type="text" [placeholder]="loginEmail" name="email" required />
-
-      <label for="psw"><b>Password:</b></label>
-      <input
-        type="password"
-        [placeholder]="loginPassword"
-        name="psw"
-        required
-      />
-
-      <button type="submit" (onClick)="(toggleLogIn)">Login</button>
-    </div>
-  </div>
+<div
+  class="authentication-card-container"
+  fxLayout="column"
+  fxLayoutAlign="center"
+>
+  <mat-card class="authentication-card">
+    <mat-card-header> <mat-card-title>Login</mat-card-title></mat-card-header>
+    <mat-card-content>
+      <form
+        [formGroup]="loginForm"
+        fxLayout="column"
+        fxLayoutAlign="center stretch"
+      >
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onSubmit()">
+        Login
+      </button>
+      <button mat-button routerLink="/register" routerLinkActive="active">
+        Don't have an account? Register here.
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
