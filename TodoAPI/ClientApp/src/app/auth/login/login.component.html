@@ -1,0 +1,19 @@
+<div class="auth-container">
+  <div class="login">
+    <div class="logIn-title"></div>
+    <div class="logIn-content">
+      <label for="email"><b>Email:</b></label>
+      <input type="text" [placeholder]="loginEmail" name="email" required />
+
+      <label for="psw"><b>Password:</b></label>
+      <input
+        type="password"
+        [placeholder]="loginPassword"
+        name="psw"
+        required
+      />
+
+      <button type="submit" (onClick)="(toggleLogIn)">Login</button>
+    </div>
+  </div>
+</div>
