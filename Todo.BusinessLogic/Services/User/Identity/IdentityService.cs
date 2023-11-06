@@ -10,13 +10,16 @@ public class IdentityService : IIdentityService
 {
     private readonly UserManager<DataAccess.Entities.User> _userManager;
     private readonly IRoleService _roleService;
+    private readonly IJwtTokenService _jwtService;
 
     public IdentityService(
         UserManager<DataAccess.Entities.User> userManager, 
-        IRoleService roleService)
+        IRoleService roleService, 
+        IJwtTokenService jwtService)
     {
         _userManager = userManager;
         _roleService = roleService;
+        _jwtService = jwtService;
     }
 
     private async Task<bool> EmailIsExistInDatabase(string email) 
@@ -24,7 +27,6 @@ public class IdentityService : IIdentityService
 
     public async Task<AuthResult> SingUp(UserSingUp userData, string basicRoleName)
     {
-        // Check if email exist in database
         var emailExist = await EmailIsExistInDatabase(userData.Email);
         if (emailExist)
             return new AuthResult()
@@ -34,8 +36,7 @@ public class IdentityService : IIdentityService
                     "Occur error. Email already exist!"
                 }
             };
-
-        // Create a userInfo and Identity
+        
         var user = new DataAccess.Entities.User()
         {
             Email = userData.Email,
@@ -45,23 +46,17 @@ public class IdentityService : IIdentityService
             UserName = userData.Username,
         };
         
-        // Create Identity
         var isCreated = await _userManager.CreateAsync(user, userData.Password);
         if (isCreated.Succeeded)
         {
-            //Creation and bind user with basic role
+            // Creation and bind user with basic role
             await CreateRoleIfNotExist(basicRoleName);
             await _userManager.AddToRoleAsync(user, basicRoleName);
             
-            //Generate the token
-            //var jwtToken = await _jwtService.GenerateJwtToken(newUserIdentity);
+            // Generate the token
+            var jwtToken = await _jwtService.GenerateJwtToken(user);
             
-            //return jwtToken;
-            return new AuthResult()
-            {
-                Token = "lol-works",
-                RefreshToken = "works!"
-            };
+            return jwtToken;
         }
 
         return new AuthResult()

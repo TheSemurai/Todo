@@ -12,6 +12,7 @@ public class ApplicationContext : IdentityDbContext<
     long>
 {
     public DbSet<PersonalTask> Tasks { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
