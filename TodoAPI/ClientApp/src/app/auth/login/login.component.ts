@@ -36,7 +36,7 @@ export class LoginComponent {
           localStorage.setItem('jwt', token);
           this.invalidLogin = false;
           this.toastr.success('Logged In successfully');
-          this.router.navigate(['/product']);
+          this.router.navigate(['/tasks']);
         },
         (err) => {
           this.invalidLogin = true;

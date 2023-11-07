@@ -14,10 +14,10 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li *ngIf="isUserAuthenticated()" class="nav-item">
-        <a class="nav-link" routerLink="/tasks">Task</a>
+        <a class="nav-link" routerLink="/tasks">[->] View my tasks</a>
       </li>
       <li *ngIf="isUserAuthenticated()" class="nav-item">
-        <a class="nav-link" (click)="logOut()">Logout</a>
+        <a class="nav-link" (click)="logOut()">[X] Logout</a>
       </li>
     </ul>
   </div>

@@ -1,2 +1,40 @@
-<p *ngFor="let item of tasks | async">{{ item.title }}: {{ item.content }}</p>
+<div class="card" *ngFor="let item of tasks | async">
+  <div class="title">
+    <textarea name="title" id="title">{{ item.title }}</textarea>
+
+    <input
+      type="checkbox"
+      id="isComplete"
+      name="scales"
+      [(ngModel)]="item.isComplete"
+      (change)="toggleCheck(item)"
+    />
+  </div>
+  <textarea name="content" id="content" cols="30" rows="10">{{
+    item.content
+  }}</textarea>
+
+  <br />
+  <button
+    class="btn delete-btn"
+    mat-raised-button
+    color="primary"
+    (click)="deleteTask(item.id)"
+  >
+    Delete
+  </button>
+  <button
+    class="btn edit-btn"
+    mat-raised-button
+    color="primary"
+    (click)="updateTask(item)"
+  >
+    Save edit
+  </button>
+</div>
+
+<br />
+<a class="nav-link" routerLink="/create-edit-task">[->] Create new task</a>
+
+<br />
 <button mat-raised-button color="primary" (click)="logOut()">Logout</button>

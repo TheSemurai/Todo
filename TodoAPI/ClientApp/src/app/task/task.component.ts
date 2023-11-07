@@ -25,8 +25,22 @@ export class TaskComponent implements OnInit {
   ngOnInit() {
     this.getAllUserTasks();
   }
+
+  toggleCheck(item: Task) {
+    item.isComplete = !item.isComplete;
+  }
+
   getAllUserTasks() {
     this.tasks = this.taskClient.getAllTasks();
+  }
+
+  updateTask(item: Task) {
+    this.taskClient.updateTask(item);
+  }
+
+  deleteTask(id: number) {
+    console.log('start deleting..');
+    this.taskClient.deleteTask(id);
   }
 
   public logOut = () => {

@@ -12,11 +12,17 @@ import { AuthGuard } from './auth/auth.guard';
 import { HomepageComponent } from './home/homepage.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CreateEditTaskComponent } from './task/create-edit-task/create-edit-task.component';
 
 //all components routes
 const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'tasks', component: TaskComponent, canActivate: [AuthGuard] },
+  {
+    path: 'create-edit-task',
+    component: CreateEditTaskComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'login', component: LoginComponent },
 ];
 
