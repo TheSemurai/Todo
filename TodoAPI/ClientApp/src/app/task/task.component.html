@@ -1,6 +1,8 @@
 <div class="card" *ngFor="let item of tasks | async">
   <div class="title">
-    <textarea name="title" id="title">{{ item.title }}</textarea>
+    <textarea class="title-textarea" name="title" id="title">{{
+      item.title
+    }}</textarea>
 
     <input
       type="checkbox"
@@ -10,9 +12,14 @@
       (change)="toggleCheck(item)"
     />
   </div>
-  <textarea name="content" id="content" cols="30" rows="10">{{
-    item.content
-  }}</textarea>
+  <textarea
+    class="content-textarea"
+    name="content"
+    id="content"
+    cols="30"
+    rows="10"
+    >{{ item.content }}</textarea
+  >
 
   <br />
   <button
