@@ -1,6 +1,6 @@
 using Todo.BusinessLogic.Entities;
 using Todo.BusinessLogic.Infrastructure.Responses;
-using Todo.DataAccess.Configuration;
+using Todo.DataAccess.Entities;
 
 namespace Todo.BusinessLogic.Interfaces;
 

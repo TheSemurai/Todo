@@ -1,4 +1,3 @@
-using System.Security.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Todo.BusinessLogic.Entities;
 using Todo.BusinessLogic.Infrastructure.Responses;

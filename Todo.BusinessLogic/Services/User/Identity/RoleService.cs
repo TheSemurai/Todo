@@ -3,7 +3,7 @@ using Todo.BusinessLogic.Entities;
 using Todo.BusinessLogic.Infrastructure.Exceptions;
 using Todo.BusinessLogic.Infrastructure.Responses;
 using Todo.BusinessLogic.Interfaces;
-using Todo.DataAccess.Configuration;
+using Todo.DataAccess.Entities;
 
 namespace Todo.BusinessLogic.Services.User.Identity;
 
@@ -45,7 +45,6 @@ public class RoleService : IRoleService
 
         if (createRoleResult.Succeeded)
         {
-            //todo:   logger: $"Result of the {nameof(CreateRole)} operation was succeeded!";
             return new RequestResult()
             {
                 Success = true,
@@ -56,7 +55,6 @@ public class RoleService : IRoleService
             };
         }
         
-        //todo: logger: $"Result of the {nameof(CreateRole)} operation was failed."
         return new RequestResult()
         {
             Success = false,
@@ -109,7 +107,6 @@ public class RoleService : IRoleService
 
                 if (bindUser.Succeeded)
                 {
-                    //todo: logger: $"Result of the {nameof(BindUserToRole)} operation was succeeded!";
                     return new RequestResult()
                     {
                         Success = true,
@@ -120,7 +117,6 @@ public class RoleService : IRoleService
                     };
                 }
                 
-                //todo: logger: $"Result of the {nameof(BindUserToRole)} operation was failed."
                 return new RequestResult()
                 {
                     Success = false,
@@ -167,7 +163,6 @@ public class RoleService : IRoleService
 
                 if (removeBind.Succeeded)
                 {
-                    //todo: logger: $"Result of the {nameof(BindUserToRole)} operation was succeeded!";
                     return new RequestResult()
                     {
                         Success = true,
@@ -178,7 +173,6 @@ public class RoleService : IRoleService
                     };
                 }
                 
-                //todo: logger: $"Result of the {nameof(BindUserToRole)} operation was failed."
                 return new RequestResult()
                 {
                     Success = false,

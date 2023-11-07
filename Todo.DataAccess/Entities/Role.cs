@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Todo.DataAccess.Configuration;
+namespace Todo.DataAccess.Entities;
 
 public class Role : IdentityRole<long>
 {

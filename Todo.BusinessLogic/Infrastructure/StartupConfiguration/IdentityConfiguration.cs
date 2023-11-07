@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Todo.DataAccess.Configuration;
 using Todo.DataAccess.Entities;
 
 namespace Todo.BusinessLogic.Infrastructure.StartupConfiguration;

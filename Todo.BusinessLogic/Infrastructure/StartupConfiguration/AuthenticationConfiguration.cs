@@ -17,8 +17,8 @@ public static class AuthenticationConfiguration
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
 
-            ValidateIssuer = false, //for dev
-            ValidateAudience = false, //for dev todo: rework
+            ValidateIssuer = false,
+            ValidateAudience = false,
             RequireExpirationTime = true,
                         
             ValidateLifetime = true,

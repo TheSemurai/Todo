@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using Todo.BusinessLogic.Infrastructure.Responses;
 using Todo.BusinessLogic.Interfaces;
 using Todo.DataAccess;
-using Todo.DataAccess.Configuration;
 using Todo.DataAccess.Entities;
 
 namespace Todo.BusinessLogic.Services.User.Identity;
@@ -153,8 +152,6 @@ public class JwtService : IJwtTokenService
  
          try
          {
-             //_tokenValidationParameters.ValidateLifetime = false;
-             
              var tokenInVerification = 
                  jwtTokenHandler.ValidateToken(tokenRequest.Token, _tokenValidationParameters, out var validatedToken);
  
