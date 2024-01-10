@@ -1,8 +1,46 @@
 <div class="card" *ngFor="let item of tasks | async">
-  <div class="title">
-    <textarea class="title-textarea" name="title" id="title">{{
-      item.title
-    }}</textarea>
+  <form (ngSubmit)="onSubmit(item)">
+    <input
+      #complete
+      (change)="toggleIsComplete($event, item)"
+      type="checkbox"
+      id="isComplete"
+      name="scales"
+      [(ngModel)]="item.isComplete"
+    />
+    <label for="title-note"> title: </label>
+    <input
+      #title
+      (keyup)="updateTitle(title.value, item)"
+      type="text"
+      id="title-note"
+      [value]="item.title"
+    />
+    <br />
+    <label for="title-content"> content: </label>
+    <input
+      #content
+      (keyup)="updateContent(content.value, item)"
+      type="text"
+      id="title-content"
+      [value]="item.content"
+    />
+
+    <input type="submit" value="Edit" />
+    <button
+      class="btn delete-btn"
+      mat-raised-button
+      color="primary"
+      (click)="deleteTask(item.id)"
+    >
+      Delete
+    </button>
+  </form>
+
+  <!-- <div class="title">
+    <textarea class="title-textarea" name="title" id="title">
+      {{ item.title }}
+    </textarea>
 
     <input
       type="checkbox"
@@ -18,8 +56,9 @@
     id="content"
     cols="30"
     rows="10"
-    >{{ item.content }}</textarea
   >
+    {{ item.content }}
+  </textarea>
 
   <br />
   <button
@@ -37,11 +76,13 @@
     (click)="updateTask(item)"
   >
     Save edit
-  </button>
+  </button>-->
 </div>
 
-<br />
-<a class="nav-link" routerLink="/create-edit-task">[->] Create new task</a>
+<div>
+  <br />
+  <a class="nav-link" routerLink="/create-edit-task">[->] Create new task</a>
 
-<br />
-<button mat-raised-button color="primary" (click)="logOut()">Logout</button>
+  <br />
+  <button mat-raised-button color="primary" (click)="logOut()">Logout</button>
+</div>

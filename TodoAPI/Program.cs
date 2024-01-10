@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using Todo.BusinessLogic.Infrastructure;
 using Todo.BusinessLogic.Infrastructure.StartupConfiguration;
 
@@ -14,7 +15,6 @@ builder.Services.AddIdentityConfiguration();
 builder.Services.ConfigureBusinessLogicServices();
 builder.Services.ConfigureAuthentication(config);
 
-
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -22,6 +22,8 @@ if (app.Environment.IsDevelopment())
         .UseSwagger()
         .UseSwaggerUI();
 }
+
+app.UseRouting();
 
 app
     .UseAuthorization()

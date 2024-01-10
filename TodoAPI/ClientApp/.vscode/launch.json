@@ -3,6 +3,23 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "🌐 Launch Chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:4200",
+      "preLaunchTask": "npm: start",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "🦊 Debuging Firefox",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "url": "http://localhost:4200",
+      "preLaunchTask": "npm: start",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
