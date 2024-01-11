@@ -16,7 +16,7 @@ import { CreateEditTaskComponent } from './task/create-edit-task/create-edit-tas
 
 //all components routes
 const routes: Routes = [
-  { path: 'home', component: HomepageComponent },
+  { path: '', component: HomepageComponent },
   { path: 'tasks', component: TaskComponent, canActivate: [AuthGuard] },
   {
     path: 'create-edit-task',
