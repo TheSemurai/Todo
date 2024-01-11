@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TaskClient } from './task.client';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { Task } from './model/task';
 @Component({
   selector: 'tasks',
   templateUrl: './task.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskComponent implements OnInit {
   tasks?: Observable<Task[]>;
@@ -28,7 +29,7 @@ export class TaskComponent implements OnInit {
   }
 
   onSubmit(item: Task) {
-    this.updateMyTask(item);
+    this.taskClient.updateTask(item);
   }
 
   toggleIsComplete(values: any, task: Task) {
@@ -38,10 +39,6 @@ export class TaskComponent implements OnInit {
 
   getAllUserTasks() {
     this.tasks = this.taskClient.getAllTasks();
-  }
-
-  updateMyTask(item: Task) {
-    this.taskClient.updateTask(item);
   }
 
   updateTitle(title: string, task: Task) {

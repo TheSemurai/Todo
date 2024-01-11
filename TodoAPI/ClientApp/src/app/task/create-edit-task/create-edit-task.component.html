@@ -1,29 +1,30 @@
-<div class="create-edit-container">
-  <label for="title" class="sr-only">title:</label>
-  <input
-    type="title"
-    id="title"
-    name="title"
-    ngModel
-    class="form-control"
-    [placeholder]="title"
-    required
-    autofocus
-  />
-  <br />
-  <label for="content" class="sr-only">content:</label>
-  <input
-    type="content"
-    id="content"
-    name="content"
-    ngModel
-    class="form-control"
-    [placeholder]="content"
-    required
-    autofocus
-  />
+<div class="creation-task-manu">
+  Let`s create a new task, fill the next:
+  <form class="creation-task-content">
+    <label for="title-note">title:</label>
+    <input
+      #title
+      (keyup)="updateTitle(title.value)"
+      type="text"
+      id="title-note"
+      placeholder="enter a new title.."
+      required
+      autofocus
+    />
+    <br />
+    <label for="content-note">content:</label>
+    <input
+      #content
+      (keyup)="updateContent(content.value)"
+      type="text"
+      id="content-note"
+      placeholder="enter a new content.."
+      required
+      autofocus
+    />
 
-  <button class="btn btn-lg btn-primary btn-block" (click)="create()">
-    Create
-  </button>
+    <input type="submit" value="Сreate" (click)="create()" />
+  </form>
 </div>
+
+<a class="btn btn-back" routerLink="/tasks" routerLinkActive="active">Back</a>

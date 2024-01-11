@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Task } from './model/task';
 import { EditCreateTask } from './model/create-edit-task';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { EditCreateTask } from './model/create-edit-task';
 export class TaskClient {
   adress: string = '/api/Task';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public getAllTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(
@@ -25,9 +26,11 @@ export class TaskClient {
       .subscribe(
         (response) => {
           console.log('Task created successfully', response);
+          this.router.navigate(['/tasks']);
         },
         (error) => {
           console.error('Error creating task', error);
+          return false;
         }
       );
   }

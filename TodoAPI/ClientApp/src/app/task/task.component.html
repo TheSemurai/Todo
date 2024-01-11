@@ -1,5 +1,5 @@
 <div class="card" *ngFor="let item of tasks | async">
-  <form (ngSubmit)="onSubmit(item)">
+  <form>
     <input
       #complete
       (change)="toggleIsComplete($event, item)"
@@ -8,7 +8,7 @@
       name="scales"
       [(ngModel)]="item.isComplete"
     />
-    <label for="title-note"> title: </label>
+    <label for="title-note">title:</label>
     <input
       #title
       (keyup)="updateTitle(title.value, item)"
@@ -17,7 +17,7 @@
       [value]="item.title"
     />
     <br />
-    <label for="title-content"> content: </label>
+    <label for="title-content">content:</label>
     <input
       #content
       (keyup)="updateContent(content.value, item)"
@@ -26,7 +26,7 @@
       [value]="item.content"
     />
 
-    <input type="submit" value="Edit" />
+    <input type="submit" value="Edit" (click)="onSubmit(item)" />
     <button
       class="btn delete-btn"
       mat-raised-button

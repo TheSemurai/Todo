@@ -16,7 +16,7 @@ import { CreateEditTaskComponent } from './task/create-edit-task/create-edit-tas
 
 //all components routes
 const routes: Routes = [
-  { path: '', component: HomepageComponent },
+  { path: 'home', component: HomepageComponent },
   { path: 'tasks', component: TaskComponent, canActivate: [AuthGuard] },
   {
     path: 'create-edit-task',
@@ -24,6 +24,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'create',
+    component: CreateEditTaskComponent,
+  },
 ];
 
 //function is use to get jwt token from local storage
