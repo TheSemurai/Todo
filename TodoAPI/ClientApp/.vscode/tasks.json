@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "running the project",
       "type": "npm",
       "script": "start",
       "isBackground": true,
@@ -21,6 +22,11 @@
       }
     },
     {
+      "label": "close all serve process",
+      "type": "process",
+      "command": ["${command:workbench.action.tasks.terminate}"]
+    },
+    {
       "type": "npm",
       "script": "test",
       "isBackground": true,
@@ -37,6 +43,15 @@
           }
         }
       }
+    }
+  ],
+  "inputs": [
+    //Input to pass the argument terminateAll to workbench.terminate
+    {
+      "id": "terminate",
+      "type": "command",
+      "command": "workbench.action.tasks.terminate",
+      "args": "terminateAll"
     }
   ]
 }
