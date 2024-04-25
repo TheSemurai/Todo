@@ -15,6 +15,14 @@ builder.Services.AddIdentityConfiguration();
 builder.Services.ConfigureBusinessLogicServices();
 builder.Services.ConfigureAuthentication(config);
 
+builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+{
+    builder
+        .WithOrigins("http://localhost:5173") // local front-end port
+        .AllowAnyMethod()
+        .AllowAnyHeader(); 
+}));
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
