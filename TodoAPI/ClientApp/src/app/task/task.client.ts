@@ -30,7 +30,6 @@ export class TaskClient {
         },
         (error) => {
           console.error('Error creating task', error);
-          return false;
         }
       );
   }

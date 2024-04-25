@@ -7,9 +7,10 @@ using Todo.BusinessLogic.Interfaces;
 using TodoAPI.Infrastructure;
 using TodoAPI.Models;
 
+
 namespace TodoAPI.Controllers;
 
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "DefaultUser")]
+// [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "DefaultUser")]
 public class TaskController : BaseController
 {
     private readonly ITaskService _taskService;
@@ -23,7 +24,16 @@ public class TaskController : BaseController
     [Route("CreateTask")]
     public async Task<IActionResult> CreateTask(CreationTask creationTask)
     {
-        var userId = await User.GetCurrentUser();
+        long userId;
+        
+        try
+        {
+            userId = await User.GetCurrentUser();
+        }
+        catch (KeyNotFoundException exception)
+        {
+            return Unauthorized("Current user is not logged, please, login.");
+        }
         
         var response = await _taskService.CreateTask(userId, creationTask);
 
@@ -37,37 +47,39 @@ public class TaskController : BaseController
     [Route("GetAllTasks")]
     public async Task<IActionResult> GetAllTasks()
     {
+        long userId;
+        
         try
         {
-            var userId = await User.GetCurrentUser();
-            
-            var tasks = await _taskService.GetAllTaskToList(userId);
-        
-            if (!tasks.Any())
-                return NoContent();
-
-            return Ok(tasks);
+            userId = await User.GetCurrentUser();
         }
-        catch (Exception exception)
+        catch (KeyNotFoundException exception)
         {
-            return BadRequest(new RequestResult()
-            {
-                Success = false,
-                Messages = new List<string>()
-                {
-                    $"Server error!",
-                    exception.Message,
-                }
-            });
+            return Unauthorized("Current user is not logged, please, login.");
         }
 
+        var tasks = await _taskService.GetAllTaskToList(userId);
+        
+        if (!tasks.Any())
+            return NoContent();
+
+        return Ok(tasks);
     }
 
     [HttpDelete]
     [Route("DeleteTask/{taskId}")]
     public async Task<IActionResult> DeleteTask(long taskId)
     {
-        var userId = await User.GetCurrentUser();
+        long userId;
+        
+        try
+        {
+            userId = await User.GetCurrentUser();
+        }
+        catch (KeyNotFoundException exception)
+        {
+            return Unauthorized("Current user is not logged, please, login.");
+        }
 
         var response = await _taskService.RemoveTaskById(userId, taskId);
 
@@ -88,7 +100,16 @@ public class TaskController : BaseController
     [Route("UpdateTask/{taskId}")]
     public async Task<IActionResult> UpdateTask(long taskId, TaskItemToUpdate item)
     {
-        var userId = await User.GetCurrentUser();
+        long userId;
+        
+        try
+        {
+            userId = await User.GetCurrentUser();
+        }
+        catch (KeyNotFoundException exception)
+        {
+            return Unauthorized("Current user is not logged, please, login.");
+        }
         
         var response = await _taskService.UpdateTask(userId, taskId, item);
         

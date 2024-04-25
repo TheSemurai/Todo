@@ -9,7 +9,7 @@ public static class AuthExtensions
         var userId = 
             claims.FindFirst(ClaimTypes.NameIdentifier)?.Value 
             ?? 
-            throw new ApplicationException("Something went wrong.");
+            throw new KeyNotFoundException("Something went wrong.");
         
         return long.Parse(userId);
     }

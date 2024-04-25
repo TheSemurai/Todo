@@ -13,22 +13,7 @@ import { HomepageComponent } from './home/homepage.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import { CreateEditTaskComponent } from './task/create-edit-task/create-edit-task.component';
-
-//all components routes
-const routes: Routes = [
-  { path: '', component: HomepageComponent },
-  { path: 'tasks', component: TaskComponent, canActivate: [AuthGuard] },
-  {
-    path: 'create-edit-task',
-    component: CreateEditTaskComponent,
-    canActivate: [AuthGuard],
-  },
-  { path: 'login', component: LoginComponent },
-  {
-    path: 'create',
-    component: CreateEditTaskComponent,
-  },
-];
+import { AppRoutingModule } from './app-routing.module';
 
 //function is use to get jwt token from local storage
 export function tokenGetter() {
@@ -47,7 +32,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes),
+    AppRoutingModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

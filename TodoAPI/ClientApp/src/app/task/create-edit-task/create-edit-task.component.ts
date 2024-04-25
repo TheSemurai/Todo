@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TaskClient } from '../task.client';
 import { EditCreateTask } from '../model/create-edit-task';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'create-edit-task',
@@ -13,7 +14,7 @@ export class CreateEditTaskComponent implements OnInit {
     isComplete: false,
   };
 
-  constructor(private taskClient: TaskClient) {}
+  constructor(private taskClient: TaskClient, private router: Router) {}
 
   ngOnInit() {}
 
@@ -29,7 +30,14 @@ export class CreateEditTaskComponent implements OnInit {
   public create() {
     console.log('start creataion');
 
-    this.taskClient.createTask(this.creationTask);
+    var request = this.taskClient.createTask(this.creationTask);
+
+    // if (request) {
+    //   this.router.navigate(['/tasks']);
+    // }
+    console.log('end creataion');
+
+    //console.warn('something went wrong.');
   }
 
   updateTitle(title: string) {
@@ -40,5 +48,7 @@ export class CreateEditTaskComponent implements OnInit {
     this.creationTask.content = content;
   }
 
-  public back = () => {};
+  public routeBackward() {
+    this.router.navigate(['/tasks']);
+  }
 }

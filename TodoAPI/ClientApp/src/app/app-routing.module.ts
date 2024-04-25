@@ -4,31 +4,33 @@ import { LoginComponent } from './auth/login/login.component';
 import { HomepageComponent } from './home/homepage.component';
 import { TaskComponent } from './task/task.component';
 import { CreateEditTaskComponent } from './task/create-edit-task/create-edit-task.component';
+import { AuthGuard } from './auth/auth.guard';
 
-//import {}
-
+//all components routes
 const routes: Routes = [
   {
     path: '',
     component: HomepageComponent,
-    //canActivate: [AuthGuard],
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
+    title: 'Home',
   },
   {
     path: 'tasks',
     component: TaskComponent,
+    canActivate: [AuthGuard],
+    title: 'Tasks',
+    children: [],
   },
   {
-    path: 'create',
+    path: 'createTask',
     component: CreateEditTaskComponent,
+    canActivate: [AuthGuard],
+    title: 'Create task',
   },
-  // {
-  //   path: 'singup',
-  //   component: SingUpComponent,
-  // },
+  {
+    path: 'login',
+    component: LoginComponent,
+    title: 'Login page',
+  },
 ];
 
 @NgModule({
