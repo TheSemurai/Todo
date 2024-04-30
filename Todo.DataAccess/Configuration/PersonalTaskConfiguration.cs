@@ -13,7 +13,7 @@ public class PersonalTaskConfiguration : IEntityTypeConfiguration<PersonalTask>
 
         builder
             .Property(p => p.Title)
-            .HasMaxLength(25)
+            .HasMaxLength(65)
             .IsRequired();
 
         builder

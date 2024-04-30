@@ -10,7 +10,8 @@ using TodoAPI.Models;
 
 namespace TodoAPI.Controllers;
 
-// [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "DefaultUser")]
+
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "DefaultUser")]
 public class TaskController : BaseController
 {
     private readonly ITaskService _taskService;

@@ -20,7 +20,7 @@ builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
     builder
         .WithOrigins("http://localhost:5173") // local front-end port
         .AllowAnyMethod()
-        .AllowAnyHeader(); 
+        .AllowAnyHeader();
 }));
 
 var app = builder.Build();
@@ -33,6 +33,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseRouting();
 
+app.UseCors("CorsPolicy");
 app
     .UseAuthorization()
     .UseAuthentication();
@@ -40,10 +41,5 @@ app
 app.UseHttpsRedirection();
 app.MapControllers();
 
-app.UseCors(builder =>
-    builder.WithOrigins("http://localhost:4200")  // or your Angular app URL
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-);
 
 app.Run();

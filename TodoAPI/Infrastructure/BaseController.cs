@@ -5,7 +5,7 @@ namespace TodoAPI.Infrastructure;
 
 [ApiController]
 [Route("api/[controller]")]
-[EnableCors("CorsPolicy")]
+// [EnableCors("CorsPolicy")]
 public class BaseController : Controller
 {
 }
