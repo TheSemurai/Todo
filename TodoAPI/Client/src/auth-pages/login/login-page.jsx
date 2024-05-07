@@ -7,8 +7,8 @@ export default function LoginPage() {
   const authService = new AuthService();
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
-    email: "a@a.a",
-    password: "Passw0rd!",
+    email: "",
+    password: "",
   });
 
   function handleEmailChange(event) {
