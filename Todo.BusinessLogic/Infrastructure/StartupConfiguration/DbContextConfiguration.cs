@@ -16,4 +16,9 @@ public static class DbContextConfiguration
 
         return services;
     }
+    
+    public static ApplicationContext GetDbContext(this IServiceProvider servicesProvider)
+    {
+        return servicesProvider.GetService<ApplicationContext>() ?? throw new ApplicationException("Can`t take application context.");
+    }
 }

@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using Todo.BusinessLogic.Infrastructure;
 using Todo.BusinessLogic.Infrastructure.StartupConfiguration;
+using Todo.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -28,6 +30,11 @@ if (app.Environment.IsDevelopment())
     app
         .UseSwagger()
         .UseSwaggerUI();
+
+    using var serviceScope = app.Services.CreateScope();
+    using var dbContext = serviceScope.ServiceProvider.GetService<ApplicationContext>();
+    // using var dbContext = serviceScope.ServiceProvider.GetDbContext();
+    dbContext?.Database.Migrate();
 }
 
 app.UseRouting();
