@@ -1,4 +1,3 @@
-using Microsoft.OpenApi.Models;
 using Todo.BusinessLogic.Infrastructure;
 using Todo.BusinessLogic.Infrastructure.StartupConfiguration;
 

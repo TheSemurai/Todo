@@ -24,10 +24,3 @@ public class User : IdentityUser<long>
         LazyLoader = lazyLoader;
     }
 }
-
-public enum GenderEnum // todo: replace it
-{
-    Male,
-    Female,
-    Other,
-}

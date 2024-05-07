@@ -5,11 +5,9 @@ using Todo.BusinessLogic.Entities;
 using Todo.BusinessLogic.Infrastructure.Responses;
 using Todo.BusinessLogic.Interfaces;
 using TodoAPI.Infrastructure;
-using TodoAPI.Models;
 
 
 namespace TodoAPI.Controllers;
-
 
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "DefaultUser")]
 public class TaskController : BaseController

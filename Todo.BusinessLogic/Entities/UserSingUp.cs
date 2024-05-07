@@ -1,4 +1,4 @@
-using Todo.DataAccess.Entities;
+using Todo.DataAccess;
 
 namespace Todo.BusinessLogic.Entities;
 

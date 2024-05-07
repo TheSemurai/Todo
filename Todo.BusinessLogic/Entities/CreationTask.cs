@@ -1,4 +1,4 @@
-namespace TodoAPI.Models;
+namespace Todo.BusinessLogic.Entities;
 
 public class CreationTask
 {
