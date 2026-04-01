@@ -2,18 +2,16 @@
   todo.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORT=3000
-      - ASPNETCORE_HTTPS_PORT=3001
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=lol123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/todo.pfx
+      - ASPNETCORE_URLS=https://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=123456
     container_name: todo.api
     image: todo.api
     build:
       context: .
       dockerfile: TodoAPI/Dockerfile
     ports:
-      - "44361:44361"
-      - "3001:3001"
+      - "44361:80"
     volumes:
       - ~/.aspnet/https:/https:ro
     depends_on: 
@@ -27,13 +25,10 @@
       - "1433:1433"
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=SuperPassword123
-    volumes:
-      - ./sqlserver/data:/var/opt/mssql/data
-      - ./sqlserver/log:/var/opt/mssql/log
+      - SA_PASSWORD=Super_Password123
     
     healthcheck:
-      test: opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "SuperPassword123" -Q "SELECT 1" -b -o /dev/null
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Super_Password123" -Q "SELECT 1" -C -b -o /dev/null
       interval: 10s
       timeout: 3s
       retries: 10

@@ -19,7 +19,10 @@ builder.Services.ConfigureAuthentication(config);
 builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
 {
     builder
-        .WithOrigins("http://localhost:5173") // local front-end port
+        .WithOrigins(
+            "http://localhost:5173",
+            "https://localhost:5173"
+            ) // local front-end port
         .AllowAnyMethod()
         .AllowAnyHeader();
 }));
@@ -37,14 +40,15 @@ if (app.Environment.IsDevelopment())
     dbContext?.Database.Migrate();
 }
 
+app.UseHttpsRedirection();
+
 app.UseRouting();
 
 app.UseCors("CorsPolicy");
-app
-    .UseAuthorization()
-    .UseAuthentication();
 
-app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
 

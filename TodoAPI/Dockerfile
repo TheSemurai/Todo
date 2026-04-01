@@ -3,7 +3,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 
 EXPOSE 44361
-EXPOSE 3001
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Development
@@ -20,7 +19,7 @@ WORKDIR "/src/TodoAPI"
 RUN dotnet build "TodoAPI.csproj" -c $BUILD_CONFIGURATION -o "/app/build"
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Develepment
+ARG BUILD_CONFIGURATION=Development
 RUN dotnet publish "TodoAPI.csproj" -c $BUILD_CONFIGURATION -o "/app/publish" /p:UseAppHost=false
 
 FROM base AS final

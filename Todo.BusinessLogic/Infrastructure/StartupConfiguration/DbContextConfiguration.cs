@@ -10,8 +10,9 @@ public static class DbContextConfiguration
     public static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContextPool<ApplicationContext>(
-            (optionsBuilder) => optionsBuilder
-                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+            (optionsBuilder) => optionsBuilder.UseSqlServer(
+                configuration.GetConnectionString("DefaultConnection"),
+                sqlServerOptions => sqlServerOptions.EnableRetryOnFailure())
         );
 
         return services;
